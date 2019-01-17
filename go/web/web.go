@@ -16,7 +16,8 @@ import (
 	"github.com/micro/go-plugins/selector/static"
 )
 
-func init() {
+// NewService returns a web service for kubernetes
+func NewService(opts ...web.Option) web.Service {
 	// set grpc transport
 	client.DefaultClient = cli.NewClient()
 	server.DefaultServer = srv.NewServer()
@@ -30,9 +31,6 @@ func init() {
 
 	// set kubernetes registry
 	os.Setenv("MICRO_REGISTRY", "kubernetes")
-}
 
-// NewService returns a web service for kubernetes
-func NewService(opts ...web.Option) web.Service {
 	return web.NewService(opts...)
 }
