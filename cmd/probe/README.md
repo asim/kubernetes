@@ -4,6 +4,12 @@ Health Probe utility allows you to query health of go-micro services. Meant to b
 
 
 
+# Using probe as docker base image
+```
+FROM microhq/probe:kubernetes
+ADD greeter-srv /greeter-srv
+ENTRYPOINT [ "/greeter-srv" ]
+```
 
 # Health checking on Kubernetes
 In your Kubernetes Pod specification manifest, specify a `livenessProbe` and/or `readinessProbe` for the container:
@@ -38,7 +44,7 @@ spec:
               initialDelaySeconds: 5
               periodSeconds: 3
               command: [
-                "/health_probe",
+                "/probe",
                 "--server_name=greeter",
                 "--server_address=0.0.0.0:8080"
               ]
